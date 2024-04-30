@@ -1,4 +1,6 @@
 import express, {Request, Response} from 'express';
+import databaseConnection from './utils/database';
+
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -9,6 +11,7 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Hello!');
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
     console.log('Listening on port', PORT);
+    await databaseConnection();
 })
