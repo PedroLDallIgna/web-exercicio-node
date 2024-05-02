@@ -9,6 +9,6 @@ export const validateCpf = (cpf: string): Boolean => {
 }
 
 export const validatePhone = (phone: string): Boolean => {
-    const phoneRegex = new RegExp(/^\(\d{2}\s\d{4,5}\-\d{4}\)$/);
+    const phoneRegex = new RegExp(/^\(\d{2}\)\s\d{4,5}\-\d{4}$/);
     return phoneRegex.test(phone);
 } 
