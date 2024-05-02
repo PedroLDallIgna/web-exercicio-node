@@ -1,7 +1,7 @@
 import { Schema, ValidateFn, model } from "mongoose";
 import { validateCpf, validateEmail, validatePhone } from "../utils/validations";
 
-interface IUsuario {
+export interface IUser {
    nome: string;
    email: string;
    idade: number;
@@ -11,7 +11,7 @@ interface IUsuario {
    rg: number;
 }
 
-const UsuarioSchema = new Schema<IUsuario>({
+const userSchema = new Schema<IUser>({
    nome: {
       type: String, 
       require: true
@@ -54,6 +54,6 @@ const UsuarioSchema = new Schema<IUsuario>({
    }
 })
 
-const Usuario = model<IUsuario>('Usuario', UsuarioSchema)
+const User = model<IUser>('User', userSchema)
 
-export default Usuario
+export default User
