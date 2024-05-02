@@ -14,7 +14,7 @@ const databaseConnection = async () => {
         mongoose.set("strictQuery", false);
         global.mongooseConnection = await mongoose.connect(URI)
         .then(() => {
-            console.log('Connected to MongoDB established')
+            console.log('Connection to MongoDB established')
         })
         .catch((err) => console.error(err))
     }
