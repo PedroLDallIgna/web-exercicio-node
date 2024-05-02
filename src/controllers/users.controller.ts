@@ -1,14 +1,14 @@
 import { Router } from "express";
 import type { Request, Response } from "express";
-import { getAllUsers, getUserById, createUser, updateUserById, deleteUserById } from "../services/Usuario";
-import type { IUsuario } from "../models/Usuario";
+import { getAllUsers, getUserById, createUser, updateUserById, deleteUserById } from "../services/users.services";
+import type { IUser } from "../models/user.model";
 import httpStatus from "http-status";
 
-const route = Router()
+const route = Router();
 
 route.post('/', async (req: Request, res: Response) => {
     if (req.body) {
-        const data: IUsuario = {
+        const data: IUser = {
             nome: req.body.nome,
             email: req.body.email,
             idade: req.body.idade,
@@ -42,7 +42,7 @@ route.get('/:id', async (req: Request, res: Response) => {
 route.put('/:id', async (req: Request, res: Response) => {
     try {
         const {id: userId} = req.params;
-        const data: IUsuario = {
+        const data: IUser = {
             nome: req.body.nome,
             email: req.body.email,
             idade: req.body.idade,
