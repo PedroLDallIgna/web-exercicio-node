@@ -1,7 +1,7 @@
 import { Schema, ValidateFn, model } from "mongoose";
 import { validateCpf, validateEmail, validatePhone } from "../utils/validations";
 
-interface IUsuario {
+export interface IUsuario {
    nome: string;
    email: string;
    idade: number;
