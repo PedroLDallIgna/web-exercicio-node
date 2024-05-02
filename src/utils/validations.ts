@@ -7,3 +7,8 @@ export const validateCpf = (cpf: string): Boolean => {
     const cpfRegex = new RegExp(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/, 'gi');
     return cpfRegex.test(cpf);
 }
+
+export const validatePhone = (phone: string): Boolean => {
+    const phoneRegex = new RegExp(/^\(\d{2}\s\d{4,5}\-\d{4}\)$/);
+    return phoneRegex.test(phone);
+} 
