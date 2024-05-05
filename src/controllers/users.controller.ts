@@ -62,7 +62,7 @@ route.delete('/:id', async (req: Request, res: Response) => {
     try {
         const {id: userId} = req.params;
         const user = await deleteUserById(userId);
-        return res.status(httpStatus.NO_CONTENT).send(user);
+        return res.status(httpStatus.OK).send(user);
     } catch (err) {
         return res.status(httpStatus.NOT_FOUND);
     }

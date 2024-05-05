@@ -1,23 +1,40 @@
 import mongoose from "mongoose";
 import getMongoDbURI from "./getMongoDbURI";
+import { MongoMemoryServer } from "mongodb-memory-server";
 import dotenv from "dotenv";
 dotenv.config()
 
-const URI = getMongoDbURI();
+let mongod: MongoMemoryServer | null = null;
 
 declare global {
     var mongooseConnection: any;
 }
 
-const databaseConnection = async () => {
-    if (!global.mongooseConnection) { 
+export const connectDB = async () => {
+    try {
+        let dbUrl = getMongoDbURI();
+        if (process.env.NODE_ENV === 'test') {
+            mongod = await MongoMemoryServer.create();
+            dbUrl = mongod.getUri(); 
+        }
+
         mongoose.set("strictQuery", false);
-        global.mongooseConnection = await mongoose.connect(URI)
-        .then(() => {
-            console.log('Connection to MongoDB established')
-        })
-        .catch((err) => console.error(err))
+        const conn = await mongoose.connect(dbUrl);
+        console.log(`MongoDB connected: ${conn.connection.host}`);
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
     }
 }
 
-export default databaseConnection;
+export const disconnectDB = async () => {
+    try {
+      await mongoose.connection.close();
+      if (mongod) {
+        await mongod.stop();
+      }
+    } catch (err) {
+      console.log(err);
+      process.exit(1);
+    }
+}
